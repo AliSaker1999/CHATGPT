@@ -7,8 +7,9 @@ using QuizAuthApi.Models;
 
 namespace QuizAuthApi.Controllers
 {
+
+    [Route("api/account")]
     [ApiController]
-    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
