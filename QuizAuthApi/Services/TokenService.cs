@@ -24,7 +24,9 @@ namespace QuizAuthApi.Services
         {
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.NameIdentifier, user.Id),          // ✅ Needed for User.FindFirstValue()
+                new Claim(ClaimTypes.Name, user.UserName),              // Optional
+                new Claim(ClaimTypes.Email, user.Email ?? string.Empty) // Optional but helpful
             };
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -42,5 +44,6 @@ namespace QuizAuthApi.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }
