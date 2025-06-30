@@ -26,7 +26,13 @@ export const registerAPI = async (
     });
     return response.data;
   } catch (error: any) {
-    alert(error.response?.data || "Registration failed");
-    return null;
+    const backend = error.response?.data;
+    // If it's an array of errors
+    if (Array.isArray(backend)) {
+      // Throw array of error descriptions
+      throw backend.map((err: any) => err.description || err.code || err.toString());
+    }
+    // If it's a string or object with message
+    throw [backend?.toString() || "Registration failed"];
   }
 };

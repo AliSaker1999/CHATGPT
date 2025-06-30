@@ -6,20 +6,28 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // NEW
-  const [error, setError] = useState(""); // For password mismatch
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<string[]>([]); 
+  const [success, setSuccess] = useState(""); 
   const navigate = useNavigate();
 
   const handleSignup = async () => {
-    setError("");
+    setErrors([]);
+    setSuccess("");
     if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+      setErrors(["Passwords do not match!"]);
       return;
     }
-    const result = await registerAPI(email, username, password);
-    if (result) {
-      alert("Signup successful! Please login.");
-      navigate("/login");
+    try {
+      const result = await registerAPI(email, username, password);
+      if (result) {
+        setSuccess("Signup successful! Please login.");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Redirect after 2 seconds
+      }
+    } catch (err: any) {
+      setErrors(Array.isArray(err) ? err : [err?.toString() || "Registration failed"]);
     }
   };
 
@@ -28,8 +36,19 @@ const Signup = () => {
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
 
-        {error && (
-          <div className="mb-4 text-red-600 text-center">{error}</div>
+        {errors.length > 0 && (
+          <ul className="mb-4 text-red-600 text-center font-semibold space-y-1">
+            {errors.map((msg, i) => (
+              <li key={i}>{msg}</li>
+            ))}
+          </ul>
+        )}
+
+
+        {success && (
+          <div className="mb-4 text-green-600 text-center font-semibold bg-green-100 rounded px-4 py-2 shadow">
+            {success}
+          </div>
         )}
 
         <input

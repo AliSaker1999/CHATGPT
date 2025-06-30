@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { UserDto } from "../Models/UserDto";
 import { getAllUsers, deleteUserByUsername } from "../Services/UserService";
-import ConfirmModal from "../Components/ConfirmModal"; // Import the modal
+import ConfirmModal from "../Components/ConfirmModal";
+import Sidebar from "../Components/Sidebar";
 
 const ManageUsersPage = () => {
   const [users, setUsers] = useState<UserDto[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
@@ -38,6 +37,7 @@ const ManageUsersPage = () => {
       alert("Failed to delete user");
     }
     setSelectedUser(null);
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -52,36 +52,10 @@ const ManageUsersPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Admin Panel</h2>
-        <nav className="space-y-3">
-          <Link
-            to="/admin/questions"
-            className="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium"
-          >
-            Manage Questions
-          </Link>
-          <Link
-            to="/admin/results"
-            className="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium"
-          >
-            Manage Results
-          </Link>
-          <Link
-            to="/admin/users"
-            className="block px-3 py-2 rounded hover:bg-blue-100 text-gray-700 font-medium font-bold bg-blue-100"
-          >
-            Manage Users
-          </Link>
-        </nav>
-      </aside>
-
-      {/* Main content */}
+      <Sidebar />
       <main className="flex-1 p-8">
         <div className="space-y-8">
           <h2 className="text-3xl font-bold text-gray-800">Manage Users</h2>
-
           <div className="flex flex-wrap items-center gap-2 bg-white p-4 rounded shadow">
             <input
               type="text"
@@ -97,7 +71,6 @@ const ManageUsersPage = () => {
               Refresh
             </button>
           </div>
-
           {loading ? (
             <div>Loading...</div>
           ) : filteredUsers.length === 0 ? (
@@ -131,14 +104,13 @@ const ManageUsersPage = () => {
             </div>
           )}
         </div>
+        <ConfirmModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onConfirm={handleDelete}
+          message={`Are you sure you want to delete ${selectedUser}?`}
+        />
       </main>
-      {/* Confirm Modal */}
-      <ConfirmModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onConfirm={handleDelete}
-        message={`Are you sure you want to delete ${selectedUser}?`}
-      />
     </div>
   );
 };

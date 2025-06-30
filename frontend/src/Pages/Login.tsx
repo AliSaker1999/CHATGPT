@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
 
     const userData = await loginAPI(username, password);
-    console.log("userData", userData);
+    
 
     if (!userData) return;
 

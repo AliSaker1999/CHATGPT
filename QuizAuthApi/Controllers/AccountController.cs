@@ -64,8 +64,7 @@ namespace QuizAuthApi.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             // Use FirstOrDefaultAsync to avoid duplicate error!
-            var user = await _userManager.Users
-                .FirstOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username);
             if (user == null) return Unauthorized("Invalid username");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -74,8 +73,7 @@ namespace QuizAuthApi.Controllers
             var roles = await _userManager.GetRolesAsync(user);
             var role = roles.FirstOrDefault();
 
-            bool hasCompletedQuiz = await _context.QuizResults
-                .AnyAsync(r => r.AppUserId == user.Id);
+            bool hasCompletedQuiz = await _context.QuizResults.AnyAsync(r => r.AppUserId == user.Id);
 
             return new UserDto
             {
