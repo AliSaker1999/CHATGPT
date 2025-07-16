@@ -88,7 +88,9 @@ namespace QuizAuthApi.Controllers
 
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users
+                .Where(u => u.UserName != "admin")
+                .ToListAsync();
 
             var userDtos = new List<UserDto>();
             foreach (var user in users)
@@ -96,7 +98,6 @@ namespace QuizAuthApi.Controllers
                 var roles = await _userManager.GetRolesAsync(user);
                 userDtos.Add(new UserDto
                 {
-                    
                     UserName = user.UserName,
                     Email = user.Email,
                     Role = roles.FirstOrDefault(), // or String.Join(",", roles) for multi-role support
@@ -105,6 +106,7 @@ namespace QuizAuthApi.Controllers
             }
             return Ok(userDtos);
         }
+
         
 
         [HttpDelete("delete/{username}")]

@@ -9,6 +9,8 @@ namespace QuizAuthApi.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuizResult> QuizResults { get; set; }
 
+        public DbSet<QuizRetakeRequest> QuizRetakeRequests { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

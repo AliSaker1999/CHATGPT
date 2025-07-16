@@ -11,6 +11,7 @@ import User from "../Pages/User";
 import QuizRedirect from "../Pages/QuizRedirect";
 import UserBestResultPage from "../Pages/UserBestResultPage";
 import ManageUsersPage from "../Pages/ManageUsersPage";
+import RetakeRequestsPage from "../Pages/RetakeRequestsPage";
 
 const AppRoutes = () => (
   <Routes>
@@ -26,6 +27,7 @@ const AppRoutes = () => (
         </ProtectedRoute>
       }
     >
+      <Route path="/admin/retake-requests" element={<RetakeRequestsPage />} />
       <Route path="/admin/results" element={<ResultsPage />} />
       <Route path="questions" element={<QuestionsPage />} />
       {/* More admin child routes here if needed */}

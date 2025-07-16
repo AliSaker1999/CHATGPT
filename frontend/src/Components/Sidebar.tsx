@@ -11,6 +11,13 @@ const links = [
       <path d="M3 17a4 4 0 004 4h10a4 4 0 004-4M12 12v9M12 3v9m0 0l3-3m-3 3l-3-3" />
     </svg>
   ) },
+  { to: "/admin/retake-requests", label: "Retake Requests", icon: (
+  <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    <path d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z" />
+    <path d="M12 11v6M9 14h6" />
+  </svg>
+) },
+
   { to: "/admin/users", label: "Manage Users", icon: (
     <svg className="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
       <path d="M17 20h5V10l-2.5-2.5M17 20V4a2 2 0 00-2-2H5a2 2 0 00-2 2v16h14z" />

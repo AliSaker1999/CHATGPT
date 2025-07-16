@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuizAuthApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e94a56c0d344d7a492d186a8f867e6b5ce78b23b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4cea24fe66146d28c46b3ffa83780e21db8f136")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuizAuthApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuizAuthApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
