@@ -36,3 +36,4 @@ export const registerAPI = async (
     throw [backend?.toString() || "Registration failed"];
   }
 };
+
