@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-// You can adjust totalQuestions to match your quiz!
-const totalQuestions = 10;
+// Set totalQuestions to match your new quiz length!
+const totalQuestions = 15;
 
 const getResultFeedback = (score: number) => {
   if (score === totalQuestions) return "🎉 Perfect! You're a quiz master!";

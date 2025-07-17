@@ -9,18 +9,18 @@ import { useAuth } from "../Context/AuthContext";
 
 const RetakeRequestsPage = () => {
   const { user } = useAuth();
-  if (!user) return <div className="p-8 text-red-600 font-bold">Unauthorized</div>;
 
+  // ✅ Always define hooks at the top level!
   const [requests, setRequests] = useState<QuizRetakeRequestDto[]>([]);
   const [loading, setLoading] = useState(true);
-  const [actionLoading, setActionLoading] = useState<number | null>(null); // store id of request being processed
+  const [actionLoading, setActionLoading] = useState<number | null>(null);
   const [error, setError] = useState<string>("");
 
   const fetchRequests = async () => {
     setLoading(true);
     setError("");
     try {
-      const data = await getAllRetakeRequests(user.token);
+      const data = await getAllRetakeRequests(user!.token);
       setRequests(data);
     } catch (e: any) {
       setError("Failed to fetch requests.");
@@ -29,9 +29,11 @@ const RetakeRequestsPage = () => {
   };
 
   useEffect(() => {
-    fetchRequests();
+    if (user) fetchRequests();
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
+
+  if (!user) return <div className="p-8 text-red-600 font-bold">Unauthorized</div>;
 
   const handleApprove = async (id: number) => {
     setActionLoading(id);

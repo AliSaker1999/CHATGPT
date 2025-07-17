@@ -1,0 +1,23 @@
+Based on the user profile, I've selected 15 questions that are most relevant to their background and interests. Here are the questions in a JSON array:
+
+```
+[
+  {"Id":51,"QuestionText":"What does CPU stand for?","OptionA":"Central Processing Unit","OptionB":"Central Process Utility","OptionC":"Computer Personal Unit","OptionD":"Control Panel Unit","CorrectAnswer":"Central Processing Unit"},
+  {"Id":55,"QuestionText":"What is the extension for a Python file?","OptionA":".pt","OptionB":".py","OptionC":".java","OptionD":".cpp","CorrectAnswer":".py"},
+  {"Id":58,"QuestionText":"Which tag is used to create a hyperlink in HTML?","OptionA":"<img>","OptionB":"<a>","OptionC":"<h1>","OptionD":"<link>","CorrectAnswer":"<a>"},
+  {"Id":60,"QuestionText":"What does RAM stand for?","OptionA":"Random Access Memory","OptionB":"Read Access Memory","OptionC":"Real Application Machine","OptionD":"Remote Access Module","CorrectAnswer":"Random Access Memory"},
+  {"Id":62,"QuestionText":"Which operating system is open source?","OptionA":"Windows","OptionB":"Mac OS","OptionC":"Linux","OptionD":"DOS","CorrectAnswer":"Linux"},
+  {"Id":67,"QuestionText":"What does API stand for?","OptionA":"Application Programming Interface","OptionB":"Advanced Programming Input","OptionC":"Application Process Integration","OptionD":"Automatic Programming Index","CorrectAnswer":"Application Programming Interface"},
+  {"Id":75,"QuestionText":"What is the main language for Android development?","OptionA":"Swift","OptionB":"Kotlin","OptionC":"Ruby","OptionD":"PHP","CorrectAnswer":"Kotlin"},
+  {"Id":78,"QuestionText":"Which company created Java?","OptionA":"Microsoft","OptionB":"Apple","OptionC":"Sun Microsystems","OptionD":"IBM","CorrectAnswer":"Sun Microsystems"},
+  {"Id":83,"QuestionText":"Which language runs in the browser?","OptionA":"Python","OptionB":"C++","OptionC":"JavaScript","OptionD":"Java","CorrectAnswer":"JavaScript"},
+  {"Id":90,"QuestionText":"Which one is a scripting language?","OptionA":"C","OptionB":"C++","OptionC":"Bash","OptionD":"Java","CorrectAnswer":"Bash"},
+  {"Id":95,"QuestionText":"Which of these is a frontend library?","OptionA":"React","OptionB":"Django","OptionC":"Spring","OptionD":"Flask","CorrectAnswer":"React"},
+  {"Id":98,"QuestionText":"What is used to style React components?","OptionA":"CSS","OptionB":"Python","OptionC":"JSON","OptionD":"HTML","CorrectAnswer":"CSS"},
+  {"Id":102,"QuestionText":"What does HTML stand for?","OptionA":"HyperText Markup Language","OptionB":"HighText Markup Language","OptionC":"HyperTool Multi Language","OptionD":"HyperText Markdown Language","CorrectAnswer":"HyperText Markup Language"},
+  {"Id":114,"QuestionText":"Which programming paradigm is JavaScript mostly associated with?","OptionA":"Object-Oriented","OptionB":"Functional","OptionC":"Procedural","OptionD":"Both Object-Oriented and Functional","CorrectAnswer":"Both Object-Oriented and Functional"},
+  {"Id":120,"QuestionText":"Which symbol is used for single-line comments in Python?","OptionA":"#","OptionB":"//","OptionC":"--","OptionD":"/* */","CorrectAnswer":"#"}
+]
+```
+
+These questions cover a range of topics, including programming languages (Python, JavaScript, Java), web development (HTML, CSS, React), operating systems (Linux), and general computer science concepts (CPU, RAM, API).

@@ -39,3 +39,17 @@ export const getRandomQuestions = async () => {
   return response.data;
 };
 
+export const getAIQuestions = async (): Promise<QuestionDto[]> => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.get<QuestionDto[]>(`${api}/ai-questions`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 429) {
+      throw new Error("You're requesting AI questions too quickly. Please wait a bit and try again.");
+    }
+    throw error;
+  }
+};

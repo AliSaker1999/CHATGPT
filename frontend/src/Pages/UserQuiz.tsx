@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getRandomQuestions } from "../Services/QuestionService";
+// import { getRandomQuestions } from "../Services/QuestionService";
+import { getAIQuestions } from "../Services/QuestionService";
 import { QuestionDto } from "../Models/Question";
 import { useNavigate } from "react-router-dom";
 import { submitQuizResult } from "../Services/QuizResultService";
@@ -7,15 +8,27 @@ import { submitQuizResult } from "../Services/QuizResultService";
 const UserQuiz = () => {
   const [questions, setQuestions] = useState<QuestionDto[]>([]);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     const data = await getRandomQuestions();
+  //     setQuestions(data);
+  //   };
+  //   fetchQuestions();
+  // }, []);
   useEffect(() => {
-    const fetchQuestions = async () => {
-      const data = await getRandomQuestions();
+  const fetchQuestions = async () => {
+    try {
+      const data = await getAIQuestions(); // use the new function
       setQuestions(data);
-    };
-    fetchQuestions();
-  }, []);
+    } catch (err: any) {
+      setError(err.message || "Failed to load questions");
+    }
+  };
+  fetchQuestions();
+}, []);
 
   const handleAnswer = (questionId: number, value: string) => {
     setAnswers({ ...answers, [questionId]: value });
@@ -64,6 +77,11 @@ const UserQuiz = () => {
           ></div>
         </div>
       </div>
+      {error && (
+  <div className="max-w-2xl mx-auto bg-red-100 text-red-700 p-4 rounded-lg mb-4 text-center font-semibold shadow">
+    {error}
+  </div>
+)}
 
       {/* Questions Section */}
       <div className="max-w-2xl mx-auto space-y-10 px-4">
