@@ -43,7 +43,18 @@ namespace QuizAuthApi.Controllers
             var user = new AppUser
             {
                 UserName = registerDto.Username,
-                Email = registerDto.Email
+                Email = registerDto.Email,
+                FullName = registerDto.FullName,
+                EducationLevel = registerDto.EducationLevel,
+                YearsOfExperience = registerDto.YearsOfExperience,
+                Specialty = registerDto.Specialty,
+                CurrentRole = registerDto.CurrentRole,
+                Age = registerDto.Age,
+                Country = registerDto.Country,
+                PreferredLanguage = registerDto.PreferredLanguage,
+                TechnologiesKnown = registerDto.TechnologiesKnown,
+                Certifications = registerDto.Certifications,
+                LearningGoals = registerDto.LearningGoals
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -56,7 +67,19 @@ namespace QuizAuthApi.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Role = "User",
-                Token = await _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user),
+                FullName = user.FullName,
+                EducationLevel = user.EducationLevel,
+                YearsOfExperience = user.YearsOfExperience,
+                Specialty = user.Specialty,
+                CurrentRole = user.CurrentRole,
+                Age = user.Age,
+                Country = user.Country,
+                PreferredLanguage = user.PreferredLanguage,
+                TechnologiesKnown = user.TechnologiesKnown,
+                Certifications = user.Certifications,
+                LearningGoals = user.LearningGoals,
+                isTaken = false
             };
         }
 
@@ -81,11 +104,23 @@ namespace QuizAuthApi.Controllers
                 Email = user.Email,
                 Role = role,
                 Token = await _tokenService.CreateToken(user),
-                isTaken = hasCompletedQuiz
+                isTaken = hasCompletedQuiz,
+                FullName = user.FullName,
+                EducationLevel = user.EducationLevel,
+                YearsOfExperience = user.YearsOfExperience,
+                Specialty = user.Specialty,
+                CurrentRole = user.CurrentRole,
+                Age = user.Age,
+                Country = user.Country,
+                PreferredLanguage = user.PreferredLanguage,
+                TechnologiesKnown = user.TechnologiesKnown,
+                Certifications = user.Certifications,
+                LearningGoals = user.LearningGoals
             };
         }
-        [HttpGet("all")]
 
+
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             var users = await _userManager.Users
@@ -100,27 +135,38 @@ namespace QuizAuthApi.Controllers
                 {
                     UserName = user.UserName,
                     Email = user.Email,
-                    Role = roles.FirstOrDefault(), // or String.Join(",", roles) for multi-role support
-                    // Optionally, you could include Id or other fields
+                    Role = roles.FirstOrDefault(),
+                    FullName = user.FullName,
+                    EducationLevel = user.EducationLevel,
+                    YearsOfExperience = user.YearsOfExperience,
+                    Specialty = user.Specialty,
+                    CurrentRole = user.CurrentRole,
+                    Age = user.Age,
+                    Country = user.Country,
+                    PreferredLanguage = user.PreferredLanguage,
+                    TechnologiesKnown = user.TechnologiesKnown,
+                    Certifications = user.Certifications,
+                    LearningGoals = user.LearningGoals
                 });
             }
             return Ok(userDtos);
         }
 
+
         
 
         [HttpDelete("delete/{username}")]
         public async Task<IActionResult> DeleteUser(string username)
-{
-    var user = await _userManager.FindByNameAsync(username);
-    if (user == null) return NotFound("User not found");
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null) return NotFound("User not found");
 
-    var result = await _userManager.DeleteAsync(user);
-    if (!result.Succeeded)
-        return BadRequest("Failed to delete user");
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                return BadRequest("Failed to delete user");
 
-    return Ok("User deleted successfully");
-}
+            return Ok("User deleted successfully");
+        }
 
 
 

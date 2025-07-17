@@ -13,27 +13,46 @@ export const loginAPI = async (username: string, password: string) => {
   }
 };
 
+// Updated to accept new user profile fields
 export const registerAPI = async (
   email: string,
   username: string,
-  password: string
+  password: string,
+  fullName: string,
+  educationLevel: string,
+  yearsOfExperience: number,
+  specialty: string,
+  currentRole: string,
+  age: number,
+  country: string,
+  preferredLanguage: string,
+  technologiesKnown: string,
+  certifications: string,
+  learningGoals: string
 ): Promise<UserProfileToken | null> => {
   try {
     const response = await axios.post<UserProfileToken>(api + "register", {
       email,
       username,
       password,
+      fullName,
+      educationLevel,
+      yearsOfExperience,
+      specialty,
+      currentRole,
+      age,
+      country,
+      preferredLanguage,
+      technologiesKnown,
+      certifications,
+      learningGoals
     });
     return response.data;
   } catch (error: any) {
     const backend = error.response?.data;
-    // If it's an array of errors
     if (Array.isArray(backend)) {
-      // Throw array of error descriptions
       throw backend.map((err: any) => err.description || err.code || err.toString());
     }
-    // If it's a string or object with message
     throw [backend?.toString() || "Registration failed"];
   }
 };
-
