@@ -12,6 +12,7 @@ import QuizRedirect from "../Pages/QuizRedirect";
 import UserBestResultPage from "../Pages/UserBestResultPage";
 import ManageUsersPage from "../Pages/ManageUsersPage";
 import RetakeRequestsPage from "../Pages/RetakeRequestsPage";
+import UserQuiz from "../Pages/UserQuiz";
 
 const AppRoutes = () => (
   <Routes>
@@ -36,8 +37,16 @@ const AppRoutes = () => (
     <Route
       path="/user"
       element={
-        <ProtectedRoute role="User" mustNotBeTaken={true}>
+        <ProtectedRoute role="User" mustNotBeTaken={false}>
           <User />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/user/quiz"
+      element={
+        <ProtectedRoute role="User" mustNotBeTaken={true}>
+          <UserQuiz />
         </ProtectedRoute>
       }
     />

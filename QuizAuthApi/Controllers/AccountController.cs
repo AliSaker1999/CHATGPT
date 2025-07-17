@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -153,7 +154,7 @@ namespace QuizAuthApi.Controllers
         }
 
 
-        
+
 
         [HttpDelete("delete/{username}")]
         public async Task<IActionResult> DeleteUser(string username)
@@ -167,6 +168,80 @@ namespace QuizAuthApi.Controllers
 
             return Ok("User deleted successfully");
         }
+        [HttpPut("update-profile")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<UserDto>> UpdateProfile([FromBody] UpdateProfileDto dto)
+        {
+            var username = User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null) return NotFound("User not found");
+
+            // Update fields
+            user.FullName = dto.FullName;
+            user.EducationLevel = dto.EducationLevel;
+            user.YearsOfExperience = dto.YearsOfExperience;
+            user.Specialty = dto.Specialty;
+            user.CurrentRole = dto.CurrentRole;
+            user.Age = dto.Age;
+            user.Country = dto.Country;
+            user.PreferredLanguage = dto.PreferredLanguage;
+            user.TechnologiesKnown = dto.TechnologiesKnown;
+            user.Certifications = dto.Certifications;
+            user.LearningGoals = dto.LearningGoals;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return BadRequest("Failed to update profile");
+
+            // Return updated profile (no new token needed)
+            var roles = await _userManager.GetRolesAsync(user);
+            return new UserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Role = roles.FirstOrDefault(),
+                FullName = user.FullName,
+                EducationLevel = user.EducationLevel,
+                YearsOfExperience = user.YearsOfExperience,
+                Specialty = user.Specialty,
+                CurrentRole = user.CurrentRole,
+                Age = user.Age,
+                Country = user.Country,
+                PreferredLanguage = user.PreferredLanguage,
+                TechnologiesKnown = user.TechnologiesKnown,
+                Certifications = user.Certifications,
+                LearningGoals = user.LearningGoals
+            };
+        }
+
+        [HttpGet("profile")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<UserDto>> GetProfile()
+        {
+            var username = User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null) return NotFound("User not found");
+
+            var roles = await _userManager.GetRolesAsync(user);
+            return new UserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Role = roles.FirstOrDefault(),
+                FullName = user.FullName,
+                EducationLevel = user.EducationLevel,
+                YearsOfExperience = user.YearsOfExperience,
+                Specialty = user.Specialty,
+                CurrentRole = user.CurrentRole,
+                Age = user.Age,
+                Country = user.Country,
+                PreferredLanguage = user.PreferredLanguage,
+                TechnologiesKnown = user.TechnologiesKnown,
+                Certifications = user.Certifications,
+                LearningGoals = user.LearningGoals
+            };
+        }
+
 
 
 
